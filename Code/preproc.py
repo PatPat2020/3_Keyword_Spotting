@@ -102,7 +102,7 @@ def main():
     print('dictionary fusionned')
     
     results = norm(binarised)
-    print(results('270-01-01'))
+    print(results['270-01-01'])
     
     # pkl = os.path.join(dataset, 'pkl')
     # with open(pkl,'preprocess data','wb') as f:
