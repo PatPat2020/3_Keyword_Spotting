@@ -28,7 +28,7 @@ def masking(number, img_fold, doc_fold):
         masks[path.getAttribute('id')] = d
     doc.unlink()
 
-    for i in tqdm(masks, desc='Processing page %d' % number):
+    for i in tqdm(masks, desc='Masking page %d' % number):
         cell = masks[i]
         pth = Path(cell, closed=False)
 
@@ -60,7 +60,7 @@ def bin(data):
 
     results = {}
 
-    for i in tqdm(data):
+    for i in tqdm(data,'Binarisation'):
         word = data[i].filled(255)
         #Only keep the dark parts
         tresh = filters.threshold_otsu(word)
