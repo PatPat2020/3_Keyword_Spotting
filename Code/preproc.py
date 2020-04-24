@@ -8,12 +8,12 @@ from matplotlib import image
 import os
 from skimage import filters
 import pickle
+from tqdm import tqdm
 #Based on https://stackoverflow.com/questions/21566610/crop-out-partial-image-using-numpy-or-scipy
 
 
-
 def masking(number, img_fold, doc_fold):
-    
+
     img = image.imread(os.path.join(img_fold, '%d.jpg' % number))
 
     doc = minidom.parse(os.path.join(doc_fold, '%d.svg' % number))
@@ -28,7 +28,7 @@ def masking(number, img_fold, doc_fold):
         masks[path.getAttribute('id')] = d
     doc.unlink()
 
-    for i in masks:
+    for i in tqdm(masks, desc='Processing page %d' % number):
         cell = masks[i]
         pth = Path(cell, closed=False)
 
@@ -55,23 +55,25 @@ def masking(number, img_fold, doc_fold):
         # plt.show()
     return result
 
+
 def bin(data):
-    
+
     results = {}
-    
-    for i in data:
+
+    for i in tqdm(data):
         word = data[i].filled(255)
         #Only keep the dark parts
         tresh = filters.threshold_otsu(word)
-        results[i] = word<tresh
+        results[i] = word < tresh
     return results
+
 
 def norm(data):
     height = max([x.shape[0] for x in data.values()])
     width = max([x.shape[1] for x in data.values()])
-    
+
     results = {}
-    for i in data:
+    for i in tqdm(data, 'Normalisation'):
         foo = data[i]
         target = np.zeros((height, width))
         target[:foo.shape[0], :foo.shape[1]] = foo
@@ -83,30 +85,46 @@ def main():
     dataset = os.path.join('..', 'dataset')
     img_fold = os.path.join(dataset, 'images')
     doc_fold = os.path.join(dataset, 'ground-truth', 'locations')
-    
+
     numbers = []
+
+    if not os.path.isdir('pkl'):
+        os.mkdir('pkl')
+    else:
+        print('pkl exists')
+
     for file in os.listdir(doc_fold):
-        number = int(file.replace('.svg',''))
+        number = int(file.replace('.svg', ''))
         numbers.append(number)
     print(numbers)
     _binarised = []
     binarised = {}
     print('starting masking and binarisation')
     for number in numbers:
-        masked = masking(number, img_fold, doc_fold)
-        _binarised.append(bin(masked))
-        print('Page %d done'%number)
+        file = os.path.join('pkl', '%d.pkl' % number)
+        if not os.path.isfile(file):
+            print('generating binarised data for ' + file)
+            masked = masking(number, img_fold, doc_fold)
+            page_bin = bin(masked)
+            with open(file, 'wb') as f:
+                pickle.dump(page_bin, f, pickle.HIGHEST_PROTOCOL)
+        else:
+            print('loading binarised data from ' + file)
+            with open(file, 'rb') as f:
+                page_bin = pickle.load(f)
+        _binarised.append(page_bin)
+
+        print('Page %d done' % number)
     print('Data binarized')
-    for d in _binarised:
+    for d in tqdm(_binarised, desc='Dictionary fusion'):
         binarised.update(d)
     print('dictionary fusionned')
-    
+
     results = norm(binarised)
-    print(results['270-01-01'])
-    
-    # pkl = os.path.join(dataset, 'pkl')
-    # with open(pkl,'preprocess data','wb') as f:
-    #     pickle.dump(results, f, pickle.HIGHEST_PROTOCOL)
-    # print('preprocessing done')
+
+    print('preprocessing done')
     return(results)
-    
+
+
+if __name__ == '__main__':
+    main()
