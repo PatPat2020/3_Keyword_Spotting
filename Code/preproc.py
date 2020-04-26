@@ -133,6 +133,13 @@ def main():
     results = norm(binarised)
 
     print('preprocessing done')
+    
+    # Visual verification. Uncomment to see (will take a long time)
+    # for i in results:
+    #     plt.imshow(results[i],cmap='binary')
+    #     plt.figure(i)
+    # plt.show
+    
     #Final result is a dictionary with a format {'word index (XXX-X-X)':Normalised binary image}
     return(results)
 
