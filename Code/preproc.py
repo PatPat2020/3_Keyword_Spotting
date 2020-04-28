@@ -81,7 +81,7 @@ def norm(data):
     return results
 
 
-def main():
+def preproc():
     # folder locations
     dataset = os.path.join('..', 'dataset')
     img_fold = os.path.join(dataset, 'images')
@@ -143,6 +143,8 @@ def main():
     #Final result is a dictionary with a format {'word index (XXX-X-X)':Normalised binary image}
     return(results, numbers)
 
-
+def main():
+    preproc()
+    
 if __name__ == '__main__':
     main()
