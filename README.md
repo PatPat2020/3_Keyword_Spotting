@@ -24,6 +24,6 @@ Here are some examples of good results :
 
  ![John](Code/images/john.png)
 
-However the majority of words resulted in less good results, maybe because of their number of occurences or difference in each page, therefore the final curve of precision and recall is the following :
+However the majority of words resulted in less good results, maybe because of their number of occurences or difference in each page, therefore the final curve of precision and recall is the following, with an AP=0.059 :
 
 ![Final_Curve](Code/images/final_curve.png)
