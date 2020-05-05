@@ -17,9 +17,13 @@ After sorting the results and filtering the words to only those that appears bot
 
 Here are some examples of good results :
 * AP = 0.826, word : Instructions
-  ![Instruction](Code/images/instructions_826.png)
+
+ ![Instruction](Code/images/instructions_826.png)
+  
 * AP = 1.0, word : John
-  ![John](Code/images/john.png)
+
+ ![John](Code/images/john.png)
 
 However the majority of words resulted in less good results, maybe because of their number of occurences or difference in each page, therefore the final curve of precision and recall is the following :
+
 ![Final_Curve](Code/images/final_curve.png)
