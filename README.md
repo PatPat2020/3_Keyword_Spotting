@@ -9,6 +9,14 @@ Once the whole process is done the data left looks like this:
 ![278-26-04](Code/images/example_3.png)
 
 ### Features
+The cropped images were loaded and each column of the images are referred to as feature vectors. Each image was passed to the different functions to extract their features. Each column of the image is analyzed to get the intended features and then appended to a matrix. Each line of the matrix is an array of features that correspond to each column in the image. Then the image and it's complete matrix are stored in a dictionairy. 
+Features that are found:
+1. Lower contour
+2. Upper contour
+3. Transition from black to white pixels
+4. Fraction of black pixels
+5. Fraction of black pixels between the upper and lower contour
+6. Gradient from one feature vector's upper and lower contour to the next
 
 ### DTW algorithm and evaluation
 For the DTW algorithm, the implementation used is the one proposed [by the library tslearn](https://tslearn.readthedocs.io/en/stable/gen_modules/metrics/tslearn.metrics.dtw.html#tslearn.metrics.dtw).
