@@ -9,11 +9,11 @@ import os
 from skimage import filters
 import pickle
 from tqdm import tqdm
-#Based on https://stackoverflow.com/questions/21566610/crop-out-partial-image-using-numpy-or-scipy
+
 
 
 def masking(number, img_fold, doc_fold):
-
+    #Based on https://stackoverflow.com/questions/21566610/crop-out-partial-image-using-numpy-or-scipy
     img = image.imread(os.path.join(img_fold, '%d.jpg' % number))
 
     doc = minidom.parse(os.path.join(doc_fold, '%d.svg' % number))
