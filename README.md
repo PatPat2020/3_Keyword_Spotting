@@ -1,6 +1,9 @@
 # 3_Keyword_Spotting
+
 Pattern Recognition Task 3
+
 ## Results
+
 ### Result of preprocessing
 
 The preprocessing go through the data doing these 3 steps:
@@ -19,7 +22,7 @@ As the data doesn't change, we save the binarised data in a pickled file (the ma
 
 ### Features
 
-The cropped images were loaded and each column of the images are referred to as feature vectors. Each image was passed to the different functions to extract their features. Each column of the image is analyzed to get the intended features and then appended to a matrix. Each line of the matrix is an array of features that correspond to each column in the image. Then the image and it's complete matrix are stored in a dictionairy. 
+The cropped images were loaded and each column of the images are referred to as feature vectors. Each image was passed to the different functions to extract their features. Each column of the image is analyzed to get the intended features and then appended to a matrix. Each line of the matrix is an array of features that correspond to each column in the image. Then the image and it's complete matrix are stored in a dictionairy.  
 Features that are found:
 
 1. Lower contour
